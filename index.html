@@ -404,7 +404,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 <h3>The one structural change I would insist on</h3>
 <div class="callout">
 <div class="callout-h">Extract shared resources before adding verticals</div>
-<p>Staff, Locations and Resources are shared objects that every vertical references. Today, Services owns its own Staff / Resources / Locations tabs. If Rentals and Home Services each grow their own, Jane Doe gets configured four times, availability conflicts become unresolvable, and the unified calendar cannot compute a trustworthy busy state. Extract them once, reference them everywhere.</p>
+<p>Staff, Locations and Resources are shared objects that every vertical references. Today, Services owns its own Staff / Resources / Locations tabs. If Rentals and Field Services each grow their own, Jane Doe gets configured four times, availability conflicts become unresolvable, and the unified calendar cannot compute a trustworthy busy state. Extract them once, reference them everywhere.</p>
 </div>
 
 <p><span class="tag t-fact">Fact</span>We have Pendo instrumentation showing scale (251k accounts, 1.5m MAU), mid-range NPS (~47) with a recent detractor spike, 10+ distinct booking entry points, active mobile usage on iOS and Android, and a live A/B test on feature discoverability.</p>
@@ -492,7 +492,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 
 <div class="prob"><div class="prob-sev sev1">P1</div><div class="prob-body">
 <h4>Shared objects are owned by verticals</h4>
-<p>Staff, Locations and Resources live inside Services. Adding Rentals and Home Services on the same pattern produces N duplicate copies of the same real-world entities, breaks cross-vertical conflict detection, and makes a trustworthy unified busy-state impossible to compute.</p>
+<p>Staff, Locations and Resources live inside Services. Adding Rentals and Field Services on the same pattern produces N duplicate copies of the same real-world entities, breaks cross-vertical conflict detection, and makes a trustworthy unified busy-state impossible to compute.</p>
 </div></div>
 
 <div class="prob"><div class="prob-sev sev1">P1</div><div class="prob-body">
@@ -1085,7 +1085,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 ├── <b>Appointments</b>  → Calendar | List
 ├── Meetings
 ├── Services
-├── Home Services
+├── Field Services
 ├── Rentals
 └── Settings  <s>(Connections, Statuses)</s>
 </div>
@@ -1113,7 +1113,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 <h3>Option C &mdash; Hybrid: Appointments + a single catalogue node</h3>
 <div class="tree"><b>Calendars</b>
 ├── <b>Appointments</b>  → Calendar | List
-├── <b>Catalogue</b>     → Booking calendars | Services | Rentals | Home services
+├── <b>Catalogue</b>     → Booking calendars | Services | Rentals | Field services
 ├── <b>Staff &amp; resources</b>
 └── Settings
 </div>
@@ -1131,7 +1131,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 ├── <b>Booking calendars</b>     <s>shown only if the vertical is enabled</s>
 ├── <b>Services</b>              <s>shown only if enabled</s>
 ├── <b>Rentals</b>               <s>shown only if enabled</s>
-├── <b>Home services</b>         <s>shown only if enabled</s>
+├── <b>Field services</b>         <s>shown only if enabled</s>
 ├── <i>+ Add booking type</i>    <s>discovery surface for verticals not yet enabled</s>
 │
 ├── <b>Staff &amp; resources</b>     <s>Staff · Locations · Resources — configured ONCE</s>
@@ -1150,7 +1150,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 
 <div class="callout">
 <div class="callout-h">Why D beats C on the naming question</div>
-<p>Option C must find a word that covers booking calendars, services, rentals and home services. Every candidate is either jargon (Catalogue, Library, Offerings) or a category error (Products &mdash; these are time, not goods). Option D avoids the problem entirely: it never needs a collective noun, because it never groups them. The cost C was paying to solve scalability, D solves with conditional rendering instead.</p>
+<p>Option C must find a word that covers booking calendars, services, rentals and field services. Every candidate is either jargon (Catalogue, Library, Offerings) or a category error (Products &mdash; these are time, not goods). Option D avoids the problem entirely: it never needs a collective noun, because it never groups them. The cost C was paying to solve scalability, D solves with conditional rendering instead.</p>
 </div>
 </section>
 
@@ -1179,7 +1179,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 │   ├── Listings  <s>(categories, rate units, stock)</s>
 │   └── Booking pages
 │
-├── <b>Home services</b>                           <s>future</s>
+├── <b>Field services</b>                           <s>future</s>
 │   ├── Services  <s>(+ service areas, travel time)</s>
 │   └── Booking pages
 │
@@ -1305,7 +1305,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 <div class="tw"><table>
 <thead><tr><th style="width:14%">Channel</th><th style="width:20%">Encodes</th><th>Rationale</th></tr></thead>
 <tbody>
-<tr><td><strong>Glyph</strong></td><td><strong>Type</strong> &mdash; a 12px icon leading the block title</td><td>Scales to arbitrarily many types; survives greyscale; already how Confluence solves it. Booking calendars = users, Services = sparkle, Rentals = package, Home services = truck.</td></tr>
+<tr><td><strong>Glyph</strong></td><td><strong>Type</strong> &mdash; a 12px icon leading the block title</td><td>Scales to arbitrarily many types; survives greyscale; already how Confluence solves it. Booking calendars = users, Services = sparkle, Rentals = package, Field services = truck.</td></tr>
 <tr><td><strong>Colour</strong></td><td><strong>Status</strong> by default, user-switchable</td><td>The contentious call, argued below.</td></tr>
 <tr><td><strong>Border &amp; fill</strong></td><td><strong>Certainty</strong> &mdash; solid = confirmed, dashed = pending, hatched = blocked/busy, struck = cancelled</td><td>Directly borrowed from HoneyBook. Works at 11px, in greyscale, and at a glance from across a reception desk.</td></tr>
 <tr><td><strong>Position</strong></td><td><strong>Staff or resource</strong> via column grouping</td><td>Already the domain default (Fresha, Square). The most information-dense channel available and it costs no ink.</td></tr>
@@ -1332,7 +1332,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
   <div class="cal-c"><div class="ev st-conf"><span class="ev-g">&#9678;</span><span class="ev-t"><span class="ev-n">Hair spa &mdash; A. Rao</span><span class="ev-m">Service &middot; 1h</span></span></div></div>
   <div class="cal-t">11 AM</div>
   <div class="cal-c"><div class="ev st-new"><span class="ev-g">&#9679;</span><span class="ev-t"><span class="ev-n">Whole Facility &mdash; N. Kumari</span><span class="ev-m">Action required &middot; 5h</span></span></div></div>
-  <div class="cal-c"><div class="ev st-conf"><span class="ev-g">&#9650;</span><span class="ev-t"><span class="ev-n">Boiler service &mdash; 14 Elm St</span><span class="ev-m">Home service &middot; +25m travel</span></span></div></div>
+  <div class="cal-c"><div class="ev st-conf"><span class="ev-g">&#9650;</span><span class="ev-t"><span class="ev-n">Boiler service &mdash; 14 Elm St</span><span class="ev-m">Field service &middot; +25m travel</span></span></div></div>
   <div class="cal-c"><div class="ev st-conf"><span class="ev-g">&#9678;</span><span class="ev-t"><span class="ev-n">Yoga 11am</span><span class="ev-m">Class &middot; 8/12 booked</span></span></div></div>
   <div class="cal-c"><div class="ev st-canc"><span class="ev-g">&#9678;</span><span class="ev-t"><span class="ev-n">Gel overlays</span><span class="ev-m">Cancelled</span></span></div></div>
 </div>
@@ -1342,7 +1342,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
   <span class="leg-i"><span class="leg-s" style="background:#FEF3F2;border-left:3px solid #B42318"></span>Action required</span>
   <span class="leg-i"><span class="leg-s" style="background:repeating-linear-gradient(45deg,#F2F4F7 0 5px,#EAECF0 5px 10px);border-left:3px solid #98A2B3"></span>Busy / blocked</span>
   <span class="leg-i"><span class="leg-s" style="background:#F9FAFB;border-left:3px solid #D0D5DD"></span>Cancelled</span>
-  <span class="leg-i" style="margin-left:auto">&#9679; Booking calendar &nbsp; &#9678; Service &nbsp; &#9635; Rental &nbsp; &#9650; Home service</span>
+  <span class="leg-i" style="margin-left:auto">&#9679; Booking calendar &nbsp; &#9678; Service &nbsp; &#9635; Rental &nbsp; &#9650; Field service</span>
 </div>
 </div>
 </div>
@@ -1378,7 +1378,7 @@ hr.div{border:0; border-top:1px solid var(--rule); margin:52px 0}
 <p><span class="tag t-fact">Fact</span>Pendo shows active iOS and Android usage, so this is not hypothetical. Below 1024px: granularity locks to Day or Schedule (agenda list); staff columns become a horizontally-swipeable set with a sticky staff header; the two toolbar rows collapse into one row plus a single &ldquo;Filters&rdquo; sheet containing type, staff and everything else; the saved-view chip stays visible because it is the cheapest way to reach a useful subset on a small screen. Hover-dependent affordances &mdash; the dock lift, the edit-nav reveal, tooltips &mdash; all need tap equivalents.</p>
 
 <h3>13. Creating from the unified calendar</h3>
-<p>Click-drag a range, or press New appointment. The panel opens with time pre-filled and a single <strong>&ldquo;What are you booking?&rdquo;</strong> picker whose options are <em>grouped by type</em> &mdash; Time2book&rsquo;s pattern, which I prefer to Square&rsquo;s explicit type field because it removes a decision while still teaching the taxonomy. Choosing a bookable resolves the type, and the form then reveals only that type&rsquo;s fields: staff and add-ons for a Service, unit and rate period for a Rental, address and travel for a Home service, host and invitees for a Booking calendar. Detail in &sect;17, Flow 7.</p>
+<p>Click-drag a range, or press New appointment. The panel opens with time pre-filled and a single <strong>&ldquo;What are you booking?&rdquo;</strong> picker whose options are <em>grouped by type</em> &mdash; Time2book&rsquo;s pattern, which I prefer to Square&rsquo;s explicit type field because it removes a decision while still teaching the taxonomy. Choosing a bookable resolves the type, and the form then reveals only that type&rsquo;s fields: staff and add-ons for a Service, unit and rate period for a Rental, address and travel for a Field service, host and invitees for a Booking calendar. Detail in &sect;17, Flow 7.</p>
 </section>
 <hr class="div">
 
@@ -1450,11 +1450,11 @@ Views save your filters, dates and layout so you can return to them in one click
 <div class="pan-r"><span class="cb ck">&#10003;</span><span>&#9679;</span><span style="flex:1">Booking calendars</span><span style="color:#98A2B3;font-family:var(--mono);font-size:11px">9</span></div>
 <div class="pan-r"><span class="cb ck">&#10003;</span><span>&#9678;</span><span style="flex:1">Services</span><span style="color:#98A2B3;font-family:var(--mono);font-size:11px">387</span></div>
 <div class="pan-r"><span class="cb ck">&#10003;</span><span>&#9635;</span><span style="flex:1">Rentals</span><span style="color:#98A2B3;font-family:var(--mono);font-size:11px">3</span></div>
-<div class="pan-r"><span class="cb ck">&#10003;</span><span>&#9650;</span><span style="flex:1">Home services</span><span style="color:#98A2B3;font-family:var(--mono);font-size:11px">4</span></div>
+<div class="pan-r"><span class="cb ck">&#10003;</span><span>&#9650;</span><span style="flex:1">Field services</span><span style="color:#98A2B3;font-family:var(--mono);font-size:11px">4</span></div>
 <div class="pan-h" style="border-top:1px solid #EAECF0">Also show</div>
 <div class="pan-r"><span class="cb ck">&#10003;</span><span style="flex:1">Blocked &amp; busy time</span></div>
 <div class="pan-r"><span class="cb"></span><span style="flex:1">Cancelled appointments</span></div>
-<div class="pan-f" style="color:#667085">Home services not enabled &middot; <span style="color:#004EEB">Add booking type</span></div>
+<div class="pan-f" style="color:#667085">Field services not enabled &middot; <span style="color:#004EEB">Add booking type</span></div>
 </div></div>
 </div>
 </div>
@@ -1524,7 +1524,7 @@ Views save your filters, dates and layout so you can return to them in one click
 <tr><td><span class="cb"></span></td><td><strong>Whole Facility</strong></td><td><span class="tp">&#9679; Booking calendar</span></td><td>Neha Kumari</td><td>Jane Doe</td><td>29 Aug, 09:30</td><td><span class="pill pill-new">New &middot; action required</span></td><td>Booking page</td></tr>
 <tr><td><span class="cb"></span></td><td><strong>Haircut for Women</strong></td><td><span class="tp">&#9678; Service</span></td><td>Amara Rao</td><td>Jane Doe</td><td>24 Aug, 09:00</td><td><span class="pill pill-conf">Confirmed</span></td><td>Booking page</td></tr>
 <tr><td><span class="cb"></span></td><td><strong>Coral Bay Villa</strong></td><td><span class="tp">&#9635; Rental</span></td><td>M. Okonjo</td><td>&mdash;</td><td>24&ndash;27 Aug</td><td><span class="pill pill-conf">Confirmed</span></td><td>Third party</td></tr>
-<tr><td><span class="cb"></span></td><td><strong>Boiler service &mdash; 14 Elm St</strong></td><td><span class="tp">&#9650; Home service</span></td><td>D. Whelan</td><td>Sam Lee</td><td>25 Aug, 11:00</td><td><span class="pill pill-pend">Pending</span></td><td>Conversation</td></tr>
+<tr><td><span class="cb"></span></td><td><strong>Boiler service &mdash; 14 Elm St</strong></td><td><span class="tp">&#9650; Field service</span></td><td>D. Whelan</td><td>Sam Lee</td><td>25 Aug, 11:00</td><td><span class="pill pill-pend">Pending</span></td><td>Conversation</td></tr>
 <tr><td><span class="cb"></span></td><td><strong>Discovery call</strong></td><td><span class="tp">&#9679; Booking calendar</span></td><td>T. Alvarez</td><td>Jane Doe</td><td>25 Aug, 09:00</td><td><span class="pill pill-pend">Unconfirmed</span></td><td>Routing</td></tr>
 </tbody></table></div>
 <div class="leg"><span class="leg-i">Type column appears automatically only when more than one vertical is enabled &middot; Status is inline-editable &middot; Source column is new, drawn from the 10+ instrumented booking entry points</span></div>
@@ -1568,7 +1568,7 @@ Views save your filters, dates and layout so you can return to them in one click
 <td>Locations, Resources, Statuses. <em>Note: rentals often reference no staff at all</em></td>
 </tr>
 <tr>
-<td><strong>Home services</strong></td>
+<td><strong>Field services</strong></td>
 <td>Service definitions; <strong>service areas</strong> (postcode / radius / polygon); travel-time model and whether travel consumes bookable time; on-site duration; per-area surcharge; equipment requirements; its own booking pages</td>
 <td>Staff, Resources, Statuses</td>
 </tr>
@@ -1663,7 +1663,7 @@ Views save your filters, dates and layout so you can return to them in one click
 <dl>
 <dt>Entry</dt><dd>Platform left nav &rarr; Calendars. No prior configuration.</dd>
 <dt>Intent</dt><dd>&ldquo;Set this up so people can book me.&rdquo;</dd>
-<dt>UI</dt><dd>Appointments &rsaquo; Calendar renders the real grid &mdash; current week, empty &mdash; with a dismissible setup card overlaid on the first two days: <strong>&ldquo;Choose what people can book&rdquo;</strong> and four cards (Booking calendars / Services / Rentals / Home services), each one line on what it is for. Nav shows only Appointments, Staff &amp; resources, Settings, and <em>+ Add booking type</em>.</dd>
+<dt>UI</dt><dd>Appointments &rsaquo; Calendar renders the real grid &mdash; current week, empty &mdash; with a dismissible setup card overlaid on the first two days: <strong>&ldquo;Choose what people can book&rdquo;</strong> and four cards (Booking calendars / Services / Rentals / Field services), each one line on what it is for. Nav shows only Appointments, Staff &amp; resources, Settings, and <em>+ Add booking type</em>.</dd>
 <dt>Interaction</dt><dd>Picking a type enables that vertical, adds it to nav with a brief highlight, and lands on its create-first empty state. Dismissing the card leaves the empty calendar with a persistent &ldquo;+ Add booking type&rdquo; in nav.</dd>
 <dt>Feedback</dt><dd>Nav item appears; toast &ldquo;Services enabled&rdquo;.</dd>
 <dt>Exit</dt><dd>Inside the chosen vertical with one bookable created, and a &ldquo;View booking page&rdquo; action &mdash; the existing product already gets this right.</dd>
@@ -2015,7 +2015,7 @@ Views save your filters, dates and layout so you can return to them in one click
     <div style="padding:7px 10px;font-size:13.5px;color:#344054">Staff &amp; resources</div>
     <div style="padding:7px 10px;font-size:13.5px;color:#344054">Settings</div>
   </div>
-  <div style="margin-top:14px;font-size:11.5px;color:#98A2B3;max-width:300px;line-height:1.5">This account has Services and Rentals enabled. Booking calendars and Home services are not shown &mdash; they appear via &ldquo;Add booking type&rdquo;.</div>
+  <div style="margin-top:14px;font-size:11.5px;color:#98A2B3;max-width:300px;line-height:1.5">This account has Services and Rentals enabled. Booking calendars and Field services are not shown &mdash; they appear via &ldquo;Add booking type&rdquo;.</div>
 </div>
 </div>
 </div>
