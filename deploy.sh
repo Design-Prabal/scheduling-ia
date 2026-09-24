@@ -23,6 +23,12 @@ wait_idle() {
   echo "  $label: TIMED OUT after 10m" >&2; return 1
 }
 
+# The bundle must be newer than the build it is supposed to carry.
+if [ -f ../dist/index.html ] && [ prototype/index.html -ot ../dist/index.html ]; then
+  echo "REFUSING: prototype/index.html is older than the last build — bundle step did not run" >&2
+  exit 1
+fi
+
 echo "1/4  waiting for any in-flight build"
 wait_idle "queue"
 
